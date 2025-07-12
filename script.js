@@ -9,11 +9,13 @@ const wallet = 'UQCiOnRxozBuryhaQ5QlCnCDwCcC7arbqnrGIlKg_4J_YQRa';
 function showPaymentOptionsWithDescription(description) {
   glitch.currentTime = 0;
   glitch.play();
+  // Экранируем одинарные кавычки в описании, чтобы оно не сломало HTML-атрибут onclick
+  const escapedDescription = description.replace(/'/g, "\\'");
   content.innerHTML = `
     <div class='fade-in centered-container'>
       <p class='text-highlight' style='margin-top: auto;'>${description}</p>
-      <button class='btn' onclick="showQR('TONCOIN', 'start')">TONCOIN</button>
-      <button class='btn' onclick="showQR('USDT (TON)', 'start')">USDT (TON)</button>
+      <button class='btn' onclick="showQR('TONCOIN', '${escapedDescription}')">TONCOIN</button>
+      <button class='btn' onclick="showQR('USDT (TON)', '${escapedDescription}')">USDT (TON)</button>
       <button class='btn'>БАНКОВСКАЯ КАРТА</button>
       <button class='btn'>TELEGRAM STARS</button>
       <button class='btn' onclick="navigate('start')">← НАЗАД</button>
@@ -21,9 +23,12 @@ function showPaymentOptionsWithDescription(description) {
   `;
 }
 
-function showQR(label, returnTo = 'start') {
+// Второй параметр изменен на 'serviceDescription', чтобы хранить описание услуги
+function showQR(label, serviceDescription) {
   glitch.currentTime = 0;
   glitch.play();
+  // Также экранируем кавычки здесь для безопасной передачи в следующую функцию
+  const escapedServiceDescription = serviceDescription.replace(/'/g, "\\'");
   content.innerHTML = `
     <div class='fade-in centered-container'>
       <p class='text-highlight'>${label}</p>
@@ -34,7 +39,7 @@ function showQR(label, returnTo = 'start') {
         <p style="cursor: pointer; color: #00f0ff;" onclick="navigator.clipboard.writeText('${wallet}')">${wallet}</p>
       </div>
       <p style="font-size: 8px; color: #aaa;">Нажмите, чтобы скопировать адрес</p>
-      <button class='btn' onclick="navigate('${returnTo}')">← НАЗАД</button>
+      <button class='btn' onclick="showPaymentOptionsWithDescription('${escapedServiceDescription}')">← НАЗАД</button>
     </div>
   `;
 }
