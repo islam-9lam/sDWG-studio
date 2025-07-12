@@ -30,16 +30,16 @@ body.light-theme .btn {
 }
 
 .subtitle {
-  font-size: clamp(8px, 2vw, 12px);
+  font-size: clamp(12px, 3vw, 16px);
   color: #00f0ff;
-  margin-top: 6px;
+  margin-top: 16px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 #logo {
-  font-size: clamp(14px, 4vw, 22px);
-  margin-top: 20px;
+  font-size: clamp(20px, 6vw, 32px);
+  margin-top: 90px;
   z-index: 1;
   color: #00f0ff;
   text-align: center;
